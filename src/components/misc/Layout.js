@@ -2,6 +2,7 @@ import { ThemeProvider } from "../../contexts/themeContext";
 import { AuthContextProvider } from "../../contexts/authContext";
 import { useEffect } from "react";
 import { SnackbarContextProvider } from "../../contexts/snackbarContext";
+import { DialogContextProvider } from "../../contexts/dialogContext";
 
 export default function Layout({ children }) {
 	useEffect(() => {
@@ -27,9 +28,13 @@ export default function Layout({ children }) {
 	return (
 		<AuthContextProvider>
 			<ThemeProvider>
-				<SnackbarContextProvider>
-					<div className="bg-primary w-screen h-screen p-0 m-0">{children}</div>
-				</SnackbarContextProvider>
+				<DialogContextProvider>
+					<SnackbarContextProvider>
+						<div className="bg-primary w-screen h-screen p-0 m-0">
+							{children}
+						</div>
+					</SnackbarContextProvider>
+				</DialogContextProvider>
 			</ThemeProvider>
 		</AuthContextProvider>
 	);

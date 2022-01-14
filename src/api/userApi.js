@@ -128,3 +128,42 @@ export const resetPassword = async (vCode, password) => {
 		return false;
 	}
 };
+
+export const getActiveUsers = async (userId) => {
+	try {
+		const res = await axios.get(`/user/activeUsers?userId=${userId}`);
+		if (res.status === 200) {
+			return res.data;
+		}
+		return [];
+	} catch (e) {
+		console.log(e.message);
+		return null;
+	}
+};
+
+export const updateStatus = async (status) => {
+	try {
+		const res = await axios.post("/user/updateStatus", status);
+		if (res.status === 200) {
+			return res.data;
+		}
+		return false;
+	} catch (e) {
+		console.log(e.message);
+		return null;
+	}
+};
+
+export const getSocketId = async (userId) => {
+	try {
+		const res = await axios.get(`/user/getSocketId?userId=${userId}`);
+		if (res.status === 200) {
+			return res.data;
+		}
+		return false;
+	} catch (e) {
+		console.log(e.message);
+		return null;
+	}
+};

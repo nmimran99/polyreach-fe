@@ -22,6 +22,11 @@ code {
 	--color-text-secondary: #999999;
 	--color-text-accent: #81e6d9;
 	--color-border-primary: #bbbbbb;
+	--color-border-secondary: #ffb800;
+	--color-border-light: #444;
+	--color-active: #3df505;
+	--color-busy: #ffa200;
+	--color-inactive: #ff0000;
 }
 
 .light {
@@ -31,6 +36,34 @@ code {
 	--color-text-secondary: #555555;
 	--color-text-accent: #ffffff;
 	--color-border-primary: #333333;
+	--color-border-secondary: #ffd875;
+	--color-border-light: #888888;
+	--color-active: #3df505;
+	--color-busy: #ffa200;
+	--color-inactive: #ff0000;
+}
+
+::-webkit-scrollbar {
+	width: 4px;
+	height: 16px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	border-radius: 50px;
+	background: rgba(0, 0, 0, 0);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 100vh;
+	border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.2);
 }
 
 @tailwind base;

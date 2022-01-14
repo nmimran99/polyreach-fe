@@ -36,6 +36,9 @@ module.exports = {
 			backgroundColor: {
 				primary: "var(--color-bg-primary)",
 				secondary: "var(--color-bg-secondary)",
+				active: "var(--color-active)",
+				busy: "var(--color-busy)",
+				inactive: "var(--color-inactive)",
 			},
 			textColor: {
 				accent: "var(--color-text-accent)",
@@ -45,11 +48,48 @@ module.exports = {
 			borderColor: {
 				primary: "var(--color-border-primary)",
 				secondary: "var(--color-border-secondary)",
+				light: "var(--color-border-light)",
 				accent: "var(--color-bg-secondary)",
+				active: "var(--color-active)",
+				busy: "var(--color-busy)",
+				inactive: "var(--color-inactive)",
 			},
 			ringColor: {
 				primary: "var(--color-bg-primary)",
 				secondary: "var(--color-bg-secondary)",
+				active: "var(--color-active)",
+				busy: "var(--color-busy)",
+				inactive: "var(--color-inactive)",
+			},
+			keyframes: {
+				fadeIn: {
+					"0%": { opacity: "0" },
+					"100%": { opacity: "100" },
+				},
+				slideUp: {
+					"0%": { marginTop: "1000px" },
+					"100%": { marginTop: "0" },
+				},
+				slideLeft: {
+					"0%": { marginLeft: "1000px" },
+					"100%": { marginLeft: "0" },
+				},
+				slideRight: {
+					"0%": { marginRight: "1000px" },
+					"100%": { marginRight: "0" },
+				},
+				lightpulse: {
+					"0%": { borderColor: "rgba(255,255,255,0)" },
+					"50%": { borderColor: "rgba(255,255,255,0.5)" },
+					"100%": { borderColor: "rgba(255,255,255,0)" },
+				},
+			},
+			animation: {
+				fadeIn: "fadeIn 0.3s ease-in-out",
+				slideUp: "slideUp 0.3s ease-in-out",
+				slideLeft: "slideLeft 0.3s linear",
+				slideRight: "slideRight 0.3s linear",
+				lightpulse: "lightpulse 2.5s infinite",
 			},
 		},
 	},

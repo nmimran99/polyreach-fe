@@ -19,13 +19,25 @@ export default function useSnackbar() {
 		return accents[snackbar.result];
 	};
 
+	const success = (successText) => {
+		setSnackbar({ result: "success", text: successText });
+	};
+
+	const error = (errorText) => {
+		setSnackbar({ result: "error", text: errorText });
+	};
+
+	const info = (infoText) => {
+		setSnackbar({ result: "info", text: infoText });
+	};
+
 	const SnackbarComponent = () => {
 		if (!snackbar.result) return null;
 
 		return (
 			<div
-				className={`w-full h-20 absolute bottom-0 text-center text-white ${getAccent()} shadow-md
-                    md:w-1/2 md:rounded-md md:bottom-8 md:transform md:translate-x-1/2 md:right-1/2 md:h-24
+				className={`w-full h-20 absolute bottom-0 text-center text-white ${getAccent()} shadow-md z-50
+                    md:w-1/2 md:rounded-md md:bottom-8 md:right-8 md:h-20
                     lg:w-1/4
                 `}
 			>
@@ -53,5 +65,5 @@ export default function useSnackbar() {
 		);
 	};
 
-	return { SnackbarComponent, setSnackbar };
+	return { SnackbarComponent, setSnackbar, success, error, info };
 }

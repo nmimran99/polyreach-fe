@@ -95,9 +95,8 @@ export default function Login() {
 			<PolyreachLink />
 			<div className="flex flex-col items-center">
 				<div
-					className="text-primary font-medium text-3xl mt-36
-				md:mt-48
-				xl:mt-72
+					className="text-primary font-medium text-3xl mt-24 sm:mt-36
+				xl:mt-48
 				"
 				>
 					Welcome Back!

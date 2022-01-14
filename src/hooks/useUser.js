@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
-import { reAuthUser } from "../api/userApi";
+import { reAuthUser, updateStatus } from "../api/userApi";
 import AuthContext from "../contexts/authContext";
 import {
 	eraseCookie,
@@ -9,18 +9,15 @@ import {
 	getCookies,
 	setCookies,
 } from "../utils/cookies";
+import axios from "../api/axiosInstance";
+import useSocket from "./useSocket";
 
 export default function useUser() {
 	const { auth, setAuth } = useContext(AuthContext);
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		setCookies(auth.token);
-	}, [auth]);
-
 	const refreshToken = async () => {
 		let token = getCookies(["token", "refreshToken"]) || auth.token;
-		console.log(token);
 		const res = await reAuthUser(token);
 		if (res.auth) {
 			setAuth({ user: res.user, token: res.token });
@@ -47,5 +44,11 @@ export default function useUser() {
 		eraseCookie("refreshToken");
 	};
 
-	return { ...auth, setAuth, refreshToken, logout, clearAuth };
+	return {
+		...auth,
+		setAuth,
+		refreshToken,
+		logout,
+		clearAuth,
+	};
 }

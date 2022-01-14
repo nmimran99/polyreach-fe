@@ -7,6 +7,7 @@ export default AuthContext;
 export const AuthContextProvider = ({ children }) => {
 	const [auth, setAuth] = useState({
 		user: null,
+		status: null,
 		token: {
 			token: null,
 			refreshToken: null,
