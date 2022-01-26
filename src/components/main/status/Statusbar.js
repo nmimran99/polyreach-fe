@@ -9,7 +9,9 @@ export default function StatusBar({}) {
 	return (
 		<>
 			<button
-				className="absolute bottom-28 right-1/2 transform translate-x-1/2 flex items-center z-10 h-10 whitespace-nowrap border border-primary rounded-full px-2 bg-black text-white md:bottom-10
+				className="absolute bottom-28 right-1/2 transform translate-x-1/2 flex items-center z-10 
+							h-10 whitespace-nowrap border border-primary rounded-full px-2 
+							bg-black bg-opacity-10 backdrop-filter backdrop-blur-lg text-white md:bottom-16
         "
 				onClick={toggle}
 			>

@@ -36,6 +36,7 @@ module.exports = {
 			backgroundColor: {
 				primary: "var(--color-bg-primary)",
 				secondary: "var(--color-bg-secondary)",
+				mid: "var(--color-bg-mid)",
 				active: "var(--color-active)",
 				busy: "var(--color-busy)",
 				inactive: "var(--color-inactive)",
@@ -71,8 +72,8 @@ module.exports = {
 					"100%": { marginTop: "0" },
 				},
 				slideLeft: {
-					"0%": { marginLeft: "1000px" },
-					"100%": { marginLeft: "0" },
+					"0%": { translateX: "1000px" },
+					"100%": { translateX: "0" },
 				},
 				slideRight: {
 					"0%": { marginRight: "1000px" },
@@ -83,6 +84,11 @@ module.exports = {
 					"50%": { borderColor: "rgba(255,255,255,0.5)" },
 					"100%": { borderColor: "rgba(255,255,255,0)" },
 				},
+				pulseblue: {
+					"0%": { backgroundColor: "rgb(22,22,22)" },
+					"50%": { backgroundColor: "rgb(37,99,235)" },
+					"100%": { backgroundColor: "rgb(22,22,22)" },
+				},
 			},
 			animation: {
 				fadeIn: "fadeIn 0.3s ease-in-out",
@@ -90,6 +96,7 @@ module.exports = {
 				slideLeft: "slideLeft 0.3s linear",
 				slideRight: "slideRight 0.3s linear",
 				lightpulse: "lightpulse 2.5s infinite",
+				pulseblue: "pulseblue 2.5s infinite",
 			},
 		},
 	},

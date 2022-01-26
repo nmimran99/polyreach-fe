@@ -93,7 +93,7 @@ export default function MyNetwork({}) {
 			onClickAway={() => !isMobile() && setModalType(null)}
 			nodeRef={null}
 			className="h-full w-screen absolute top-0 right-0 z-30 bg-primary
-			md:w-min md:max-h-[70%] md:h-max  md:border md:border-light md:rounded-xl md:top-16 md:right-4 md:shadow-md
+			md:w-min md:max-h-[70%] md:h-max  md:border md:border-light md:rounded-xl md:top-16 md:right-4 md:shadow-xl 
 			"
 		>
 			<div

@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { getColor } from "../../../api/helper";
 
-export default function ActivityRing({ children, status }) {
+export default function ActivityRing({ children, status, noRing }) {
 	return (
 		<div
 			className={`rounded-full border relative w-max ${
-				status !== "Inactive"
+				noRing
+					? ""
+					: status !== "Inactive"
 					? status === "Active"
-						? "border border-active bg-primary"
-						: "border border-busy bg-primary"
+						? " border-active bg-primary"
+						: " border-busy bg-primary"
 					: null
 			} p-0.5 `}
 		>

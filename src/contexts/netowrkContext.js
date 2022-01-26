@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { connect } from "socket.io-client";
 import {
 	createConnection,
 	getConections,

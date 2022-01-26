@@ -1,16 +1,8 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react/cjs/react.development";
-import { reAuthUser, updateStatus } from "../api/userApi";
+import { reAuthUser } from "../api/userApi";
 import AuthContext from "../contexts/authContext";
-import {
-	eraseCookie,
-	getCookie,
-	getCookies,
-	setCookies,
-} from "../utils/cookies";
-import axios from "../api/axiosInstance";
-import useSocket from "./useSocket";
+import { eraseCookie, getCookies } from "../utils/cookies";
 
 export default function useUser() {
 	const { auth, setAuth } = useContext(AuthContext);

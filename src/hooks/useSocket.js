@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { SocketContext } from "../contexts/socketContext";
+import { VideoSocketContext } from "../contexts/videoSocketContext";
 
 export default function useSocket() {
-	return useContext(SocketContext);
+	return useContext(VideoSocketContext);
 }

@@ -1,5 +1,5 @@
 import { useContext } from "react/cjs/react.development";
-import { SocketContext } from "../../../contexts/socketContext";
+import { VideoSocketContext } from "../../../contexts/videoSocketContext";
 import Modal from "../../misc/Modal";
 import VideoControls from "./VideoControls";
 import VideoPlayer from "./VideoPlayer";

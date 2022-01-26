@@ -1,25 +1,29 @@
-import React, { createContext, useState, useEffect } from "react";
-import io from "socket.io-client";
+import React, { createContext, useEffect, useState } from "react";
+import { useContext, useRef } from "react/cjs/react.development";
 import Peer from "simple-peer";
-import { useRef } from "react/cjs/react.development";
-import useUser from "../hooks/useUser";
+import io from "socket.io-client";
+import { createCallHisotryRow } from "../api/callHistoryApi";
 import { getShortName } from "../api/helper";
 import { getSocketId, updateStatus } from "../api/userApi";
-import useSnackbar from "../hooks/useSnackbar";
 import useActiveUsers from "../hooks/useActiveUsers";
-import { createCallHisotryRow } from "../api/callHistoryApi";
 import useCallHistory from "../hooks/useCallHistory";
+import useSnackbar from "../hooks/useSnackbar";
+import useUser from "../hooks/useUser";
+import { ConversationsContext } from "./conversationsContext";
+import { MessagesSocketContext } from "./messageSocketContext";
 
-export const SocketContext = createContext();
+export const VideoSocketContext = createContext();
 
 const socket = io.connect(`${process.env.REACT_APP_BACKEND_URL}`);
 
-export const SocketContextProvider = ({ children }) => {
+export const VideoSocketContextProvider = ({ children }) => {
 	const { user, setAuth, auth } = useUser();
 
 	const { info } = useSnackbar();
 	const { activeUsers, setActiveUsers } = useActiveUsers();
+	const { convsRef, setConversations } = useContext(ConversationsContext);
 	const { refreshCH } = useCallHistory();
+	const { myMessageSocketId } = useContext(MessagesSocketContext);
 	const [stream, setStream] = useState(null);
 	const [userStream, setUserStream] = useState(null);
 	const [myId, setMyId] = useState("");
@@ -45,6 +49,7 @@ export const SocketContextProvider = ({ children }) => {
 		socket.on(
 			"calluser",
 			({ from_sid, to_sid, from_user, signal, roomId, callData }) => {
+				console.log(callData);
 				setCHRow(callData);
 				setCall({ from_sid, to_sid, from_user, signal });
 				setRoomId(roomId);
@@ -82,17 +87,13 @@ export const SocketContextProvider = ({ children }) => {
 			setUserLeft(true);
 		});
 
-		socket.on("statuschanged", ({ userId, status }) => {
-			setActiveUsers((users) =>
-				users.map((au) => {
-					if (au._id == userId) {
-						au.status = status;
-					}
-					return au;
-				})
-			);
-		});
+		socket.on("statuschanged", handleChangeStatus);
 	}, []);
+
+	useEffect(() => {
+		if (!socket) return;
+		socket.emit("message-socket", myMessageSocketId);
+	}, [myMessageSocketId]);
 
 	useEffect(() => {
 		if (!call) return;
@@ -110,6 +111,29 @@ export const SocketContextProvider = ({ children }) => {
 			clearTimeout(timer.current);
 		};
 	}, [call]);
+
+	const handleChangeStatus = ({ userId, status }) => {
+		setActiveUsers((users) =>
+			users.map((au) => {
+				if (au._id == userId) {
+					au.status = status;
+				}
+				return au;
+			})
+		);
+		if (!convsRef.current) return;
+		if (convsRef.current.find((c) => c.participant._id == userId)) {
+			let newConvs = convsRef.current;
+			let newCurr;
+			newConvs.forEach((c) => {
+				if (c.participant._id === userId) {
+					c.participant.status = status;
+					newCurr = c;
+				}
+			});
+			setConversations(newConvs);
+		}
+	};
 
 	const refuseCall = () => {
 		socket.emit("refusedcall", { caller: call.from_sid, receiver: user });
@@ -233,7 +257,7 @@ export const SocketContextProvider = ({ children }) => {
 	};
 
 	return (
-		<SocketContext.Provider
+		<VideoSocketContext.Provider
 			value={{
 				call,
 				callAccepted,
@@ -250,9 +274,10 @@ export const SocketContextProvider = ({ children }) => {
 				broadcastUserStatus,
 				updateUserStatus,
 				initiating,
+				socket,
 			}}
 		>
 			{children}
-		</SocketContext.Provider>
+		</VideoSocketContext.Provider>
 	);
 };

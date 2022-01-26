@@ -39,7 +39,7 @@ export default function Calls({}) {
 			onClickAway={() => setModalType(null)}
 			nodeRef={null}
 			className="h-full w-screen absolute top-0 right-0 z-30 bg-primary
-				md:w-96  md:max-h-[60%] md:rounded-xl md:shadow-xl md:top-16 md:right-6 md:border md:border-light
+				md:w-96 md:max-h-[60%] md:rounded-xl md:shadow-xl md:top-16 md:right-4 md:border md:border-light
 			"
 		>
 			<div

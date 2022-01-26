@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import PolyreachLoading from "../components/misc/PolyreachLoading";
+import { ActiveConversationContextProvider } from "../contexts/activeConversationContext";
 import { ActiveUsersContextProvider } from "../contexts/activeUsersContext";
 import { CallHistoryContextProvider } from "../contexts/callHistoryContext";
+import { ConversationsContextProvider } from "../contexts/conversationsContext";
+import { MessagesSocketContextProvider } from "../contexts/messageSocketContext";
 import { ModalsContextProvider } from "../contexts/modalsContext";
 import { NetworkContextProvider } from "../contexts/netowrkContext";
-import { SocketContextProvider } from "../contexts/socketContext";
+import { NotificationsContextProvider } from "../contexts/notificationsContext";
+import { VideoSocketContextProvider } from "../contexts/videoSocketContext";
 import useUser from "../hooks/useUser";
 import Workspace from "./Workspace";
 
@@ -13,7 +17,6 @@ export default function InitialRoute() {
 	const { user, refreshToken } = useUser();
 	const [isLoading, setIsLoading] = useState(true);
 
-	console.log("rendered");
 	useEffect(() => {
 		checkUserAuth();
 	}, []);
@@ -27,15 +30,23 @@ export default function InitialRoute() {
 		<PolyreachLoading />
 	) : user ? (
 		<NetworkContextProvider>
-			<ActiveUsersContextProvider>
-				<CallHistoryContextProvider>
-					<ModalsContextProvider>
-						<SocketContextProvider id={user._id}>
-							<Workspace />
-						</SocketContextProvider>
-					</ModalsContextProvider>
-				</CallHistoryContextProvider>
-			</ActiveUsersContextProvider>
+			<MessagesSocketContextProvider>
+				<ConversationsContextProvider>
+					<ActiveConversationContextProvider>
+						<ActiveUsersContextProvider>
+							<CallHistoryContextProvider>
+								<ModalsContextProvider>
+									<VideoSocketContextProvider id={user._id}>
+										<NotificationsContextProvider>
+											<Workspace />
+										</NotificationsContextProvider>
+									</VideoSocketContextProvider>
+								</ModalsContextProvider>
+							</CallHistoryContextProvider>
+						</ActiveUsersContextProvider>
+					</ActiveConversationContextProvider>
+				</ConversationsContextProvider>
+			</MessagesSocketContextProvider>
 		</NetworkContextProvider>
 	) : (
 		<Navigate to="/auth/login" />

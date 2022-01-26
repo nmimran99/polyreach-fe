@@ -3,17 +3,19 @@ import { getShortName } from "../../../api/helper";
 import ActivityRing from "./ActivityRing";
 import InterestsPills from "./InterestsPills";
 import { ThemeContext } from "../../../contexts/themeContext";
-import { SocketContext } from "../../../contexts/socketContext";
+import { VideoSocketContext } from "../../../contexts/videoSocketContext";
 import useNetwork from "../../../hooks/useNetwork";
 import { useState } from "react";
 import useDialog from "../../../hooks/useDialog";
+import useSocket from "../../../hooks/useSocket";
 
 export default function ActiveUserRow({ data }) {
 	const { theme } = useContext(ThemeContext);
 	const { setDialog } = useDialog();
 	const { addConnection, deleteConnection, network } = useNetwork();
-	const { callUser } = useContext(SocketContext);
+	const { callUser } = useContext(VideoSocketContext);
 	const [isConn, setIsConn] = useState(false);
+	const { socket } = useSocket();
 
 	useEffect(() => {
 		if (network.find((n) => n._id == data._id)) {
@@ -28,7 +30,10 @@ export default function ActiveUserRow({ data }) {
 	};
 
 	const handleAddConnection = async () => {
-		await addConnection(data);
+		const res = await addConnection(data);
+		if (res) {
+			socket.emit("notify-following", { userId: data._id });
+		}
 		setIsConn(true);
 	};
 
@@ -49,7 +54,8 @@ export default function ActiveUserRow({ data }) {
 
 	return (
 		<div
-			className="py-2 flex flex-col items-center border-b border-light w-full whitespace-nowrap 
+			className="py-4 flex flex-col items-center border-b border-t border-light w-full whitespace-nowrap my-4 bg-black bg-opacity-10 
+			md:border md:rounded-xl md:px-2
         "
 		>
 			<div
@@ -114,7 +120,7 @@ export default function ActiveUserRow({ data }) {
 					>
 						<img
 							src={`/icons/PaperPlane_${theme}.svg`}
-							className="w-5 my-auto lg:mx-2"
+							className="w-5 my-auto sm:mx-2"
 						/>
 						<div className="hidden sm:block sm:pr-4 sm:leading-6">Message</div>
 					</button>

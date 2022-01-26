@@ -129,9 +129,11 @@ export const resetPassword = async (vCode, password) => {
 	}
 };
 
-export const getActiveUsers = async (userId) => {
+export const getActiveUsers = async (userId, page) => {
 	try {
-		const res = await axios.get(`/user/activeUsers?userId=${userId}`);
+		const res = await axios.get(
+			`/user/activeUsers?userId=${userId}&page=${page}`
+		);
 		if (res.status === 200) {
 			return res.data;
 		}

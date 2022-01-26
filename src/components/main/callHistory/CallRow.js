@@ -1,6 +1,5 @@
 import { useContext, useState } from "react/cjs/react.development";
-import { getShortName } from "../../../api/helper";
-import { parseISO, format, differenceInDays, isToday } from "date-fns";
+import { getDate, getShortName } from "../../../api/helper";
 import { ThemeContext } from "../../../contexts/themeContext";
 
 export default function CallRow({ data, userId, handleCallUser }) {
@@ -18,16 +17,6 @@ export default function CallRow({ data, userId, handleCallUser }) {
 				: "missed",
 		isIncoming: data.from._id !== userId,
 	});
-
-	const getDate = () => {
-		let parsed = parseISO(data.createdAt);
-		if (isToday(parsed)) {
-			return format(parsed, "hh:mm a");
-		} else if (differenceInDays(new Date(), parsed) > 4) {
-			return format(parsed, "YYYY-MM-DD");
-		}
-		return format(parsed, "cccc");
-	};
 
 	return (
 		<button
@@ -69,7 +58,7 @@ export default function CallRow({ data, userId, handleCallUser }) {
 			</div>
 
 			<div className="my-auto mx-4">
-				<div className="text-primary text-sm">{getDate()}</div>
+				<div className="text-primary text-sm">{getDate(data.createdAt)}</div>
 			</div>
 		</button>
 	);

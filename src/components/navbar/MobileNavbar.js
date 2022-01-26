@@ -7,7 +7,7 @@ export default function MobileNavbar({ user, handleClick }) {
 	const { unreadCH } = useCallHistory();
 
 	return (
-		<div className="h-22 pb-6 flex items-center justify-between fixed bottom-0 w-screen border-t border-primary z-40 bg-black md:hidden">
+		<div className="h-22 pb-6 flex items-center justify-between fixed bottom-0 w-screen border-t border-primary z-40 bg-mid md:hidden">
 			<button
 				className={`p-4  ${modalType == null && "border-t-4 border-accent"}`}
 				onClick={handleClick(null)}

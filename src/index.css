@@ -18,19 +18,21 @@ code {
 .dark {
 	--color-bg-primary: #222222;
 	--color-bg-secondary: #ffb800;
+	--color-bg-mid: rgb(21, 21, 21);
 	--color-text-primary: #bbbbbb;
 	--color-text-secondary: #999999;
 	--color-text-accent: #81e6d9;
 	--color-border-primary: #bbbbbb;
 	--color-border-secondary: #ffb800;
 	--color-border-light: #444;
-	--color-active: #3df505;
+	--color-active: #2ec500;
 	--color-busy: #ffa200;
 	--color-inactive: #ff0000;
 }
 
 .light {
 	--color-bg-primary: #ffffff;
+	--color-bg-mid: #bbb;
 	--color-bg-secondary: #ffd875;
 	--color-text-primary: #333333;
 	--color-text-secondary: #555555;
@@ -38,7 +40,7 @@ code {
 	--color-border-primary: #333333;
 	--color-border-secondary: #ffd875;
 	--color-border-light: #888888;
-	--color-active: #3df505;
+	--color-active: #2ec500;
 	--color-busy: #ffa200;
 	--color-inactive: #ff0000;
 }
